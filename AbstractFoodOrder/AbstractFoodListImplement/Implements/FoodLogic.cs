@@ -51,11 +51,7 @@ namespace AbstractFoodListImplement.Implements
                 source.Components.Add(CreateModel(model, tempComponent));
             }
         }
-        public void CreateOrUpdate(KitBindingModel model)
-        {
-            throw new NotImplementedException();
-        }
-
+       
         public void Delete(FoodBindingModel model)
         {
             for (int i = 0; i < source.Components.Count; ++i)
@@ -67,11 +63,6 @@ namespace AbstractFoodListImplement.Implements
                 }
             }
             throw new Exception("Элемент не найден");
-        }
-
-        public void Delete(KitBindingModel model)
-        {
-            throw new NotImplementedException();
         }
 
         public List<FoodViewModel> Read(FoodBindingModel model)
@@ -91,11 +82,6 @@ namespace AbstractFoodListImplement.Implements
                 result.Add(CreateViewModel(component));
             }
             return result;
-        }
-
-        public List<KitViewModel> Read(KitBindingModel model)
-        {
-            throw new NotImplementedException();
         }
 
         private Food CreateModel(FoodBindingModel model, Food component)
