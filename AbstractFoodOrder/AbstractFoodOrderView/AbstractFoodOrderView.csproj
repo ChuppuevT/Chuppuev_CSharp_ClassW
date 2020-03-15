@@ -144,6 +144,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AbstractFoodFileImplement\AbstractFoodFileImplement.csproj">
+      <Project>{5510168d-6b20-42b9-99e2-0c86e408ddea}</Project>
+      <Name>AbstractFoodFileImplement</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AbstractFoodListImplement\AbstractFoodListImplement.csproj">
       <Project>{c997468d-cb4b-40eb-8f33-9e390220f026}</Project>
       <Name>AbstractFoodListImplement</Name>
