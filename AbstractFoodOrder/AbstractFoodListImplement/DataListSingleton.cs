@@ -13,6 +13,7 @@ namespace AbstractFoodListImplement
         public List<Kit> Products { get; set; }
         public List<KitFood> ProductComponents { get; set; }
         public List<Client> Clients { get; set; }
+        public List<Implementer> Implementers { get; set; }
         private DataListSingleton()
         {
             Components = new List<Food>();
@@ -20,6 +21,7 @@ namespace AbstractFoodListImplement
             Products = new List<Kit>();
             ProductComponents = new List<KitFood>();
             Clients = new List<Client>();
+            Implementers = new List<Implementer>();
         }
         public static DataListSingleton GetInstance()
         {

@@ -1,5 +1,6 @@
 ﻿using AbstractFoodFileImplement.Models;
 using AbstractFoodOrderBusinessLogic.BindingModels;
+using AbstractFoodOrderBusinessLogic.Enums;
 using AbstractFoodOrderBusinessLogic.Interfaces;
 using AbstractFoodOrderBusinessLogic.ViewModels;
 using System;
@@ -36,6 +37,7 @@ namespace AbstractFoodFileImplement.Implements
             }
             element.ClientId = model.ClientId == null ? element.ClientId : (int)model.ClientId;
             element.KitId = model.KitId == 0 ? element.KitId : model.KitId;
+            element.ImplementerId = model.ImplementerId;
             element.Count = model.Count;
             element.Sum = model.Sum;
             element.Status = model.Status;
@@ -61,13 +63,17 @@ namespace AbstractFoodFileImplement.Implements
            .Where(rec => model == null 
            || (rec.Id == model.Id )
            || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
-           || (model.ClientId.HasValue && rec.ClientId == model.ClientId))
+           || (model.ClientId.HasValue && rec.ClientId == model.ClientId)
+           || (model.FreeOrders.HasValue && model.FreeOrders.Value && !rec.ImplementerId.HasValue)
+           || (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && rec.Status == OrderStatus.Выполняется))
            .Select(rec => new OrderViewModel
            {
                Id = rec.Id,
                ClientId = rec.ClientId,
+               ImplementerId = rec.ImplementerId,
                KitName = source.Kits.FirstOrDefault(recP => recP.Id == rec.KitId)?.KitName,
                ClientFIO = source.Clients.FirstOrDefault(recC => recC.Id == rec.ClientId)?.FIO,
+               ImplementerFIO = source.Implementers.FirstOrDefault(recC => recC.Id == rec.ImplementerId)?.ImplementerFIO,
                Count = rec.Count,
                Sum = rec.Sum,
                Status = rec.Status,
