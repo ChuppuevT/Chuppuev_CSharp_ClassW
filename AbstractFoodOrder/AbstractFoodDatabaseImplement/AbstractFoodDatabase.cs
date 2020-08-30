@@ -12,7 +12,7 @@ namespace AbstractFoodDatabaseImplement
         {
             if (optionsBuilder.IsConfigured == false)
             {
-                optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-GANV2TI\SQLEXPRESS;Initial Catalog=AbstractFoodDatabase;Integrated Security=True;MultipleActiveResultSets=True;");
+                optionsBuilder.UseSqlServer(@"Server=(local)\SQLEXPRESS;Initial Catalog=AbstractFoodDatabase;Integrated Security=True;MultipleActiveResultSets=True;");
             }
             base.OnConfiguring(optionsBuilder);
         }
