@@ -20,5 +20,6 @@ namespace AbstractFoodDatabaseImplement
         public virtual DbSet<Kit> Kits { set; get; }
         public virtual DbSet<KitFood> KitComponents { set; get; }
         public virtual DbSet<Order> Orders { set; get; }
+        public DbSet<Client> Clients { set; get; }
     }
 }

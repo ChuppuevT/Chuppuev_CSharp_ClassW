@@ -21,10 +21,12 @@ namespace AbstractFoodOrderView
         public new IUnityContainer Container { get; set; }
         private readonly IKitLogic logicP;
         private readonly MainLogic logicM;
-        public FormCreateOrder(IKitLogic logicP, MainLogic logicM)
+        private readonly IClientLogic logicC;
+        public FormCreateOrder(IKitLogic logicP, IClientLogic logicC, MainLogic logicM)
         {
             InitializeComponent();
             this.logicP = logicP;
+            this.logicC = logicC;
             this.logicM = logicM;
         }
         private void FormCreateOrder_Load(object sender, EventArgs e)
@@ -32,9 +34,21 @@ namespace AbstractFoodOrderView
             try
             {
                 var list = logicP.Read(null);
-                comboBoxKit.DataSource = list;
-                comboBoxKit.DisplayMember = "KitName";
-                comboBoxKit.ValueMember = "Id";
+                if (list != null)
+                {
+                    comboBoxKit.DataSource = list;
+                    comboBoxKit.DisplayMember = "KitName";
+                    comboBoxKit.ValueMember = "Id";
+                    comboBoxKit.SelectedItem = null;
+                }
+                var listC = logicC.Read(null);
+                if (listC != null)
+                {
+                    comboBoxClient.DisplayMember = "FIO";
+                    comboBoxClient.ValueMember = "Id";
+                    comboBoxClient.DataSource = listC;
+                    comboBoxClient.SelectedItem = null;
+                }
             }
             catch (Exception ex)
             {
@@ -83,11 +97,17 @@ namespace AbstractFoodOrderView
                MessageBoxIcon.Error);
                 return;
             }
+            if (comboBoxClient.SelectedValue == null)
+            {
+                MessageBox.Show("Выберите клиента", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             try
             {
                 logicM.CreateOrder(new CreateOrderBindingModel
                 {
                     KitId = Convert.ToInt32(comboBoxKit.SelectedValue),
+                    ClientId = Convert.ToInt32(comboBoxClient.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),
                     Sum = Convert.ToDecimal(textBoxSum.Text)
                 });

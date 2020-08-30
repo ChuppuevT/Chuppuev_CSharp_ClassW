@@ -18,7 +18,7 @@ namespace AbstractFoodFileImplement.Implements
         }
         public void CreateOrUpdate(KitBindingModel model)
         {
-            Kit element = source.Products.FirstOrDefault(rec => rec.KitName ==
+            Kit element = source.Kits.FirstOrDefault(rec => rec.KitName ==
            model.KitName && rec.Id != model.Id);
             if (element != null)
             {
@@ -26,7 +26,7 @@ namespace AbstractFoodFileImplement.Implements
             }
             if (model.Id.HasValue)
             {
-                element = source.Products.FirstOrDefault(rec => rec.Id == model.Id);
+                element = source.Kits.FirstOrDefault(rec => rec.Id == model.Id);
                 if (element == null)
                 {
                     throw new Exception("Элемент не найден");
@@ -34,10 +34,10 @@ namespace AbstractFoodFileImplement.Implements
             }
             else
             {
-                int maxId = source.Products.Count > 0 ? source.Components.Max(rec =>
+                int maxId = source.Kits.Count > 0 ? source.Components.Max(rec =>
                rec.Id) : 0;
                 element = new Kit { Id = maxId + 1 };
-                source.Products.Add(element);
+                source.Kits.Add(element);
             }
             element.KitName = model.KitName;
             element.Price = model.Price;
@@ -72,10 +72,10 @@ namespace AbstractFoodFileImplement.Implements
         {
             // удаяем записи по компонентам при удалении изделия
             source.ProductComponents.RemoveAll(rec => rec.KitId == model.Id);
-            Kit element = source.Products.FirstOrDefault(rec => rec.Id == model.Id);
+            Kit element = source.Kits.FirstOrDefault(rec => rec.Id == model.Id);
             if (element != null)
             {
-                source.Products.Remove(element);
+                source.Kits.Remove(element);
             }
             else
             {
@@ -84,7 +84,7 @@ namespace AbstractFoodFileImplement.Implements
         }
         public List<KitViewModel> Read(KitBindingModel model)
         {
-            return source.Products
+            return source.Kits
             .Where(rec => model == null || rec.Id == model.Id)
             .Select(rec => new KitViewModel
             {

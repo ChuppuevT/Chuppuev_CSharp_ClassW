@@ -33,6 +33,7 @@ namespace AbstractFoodOrderView
            HierarchicalLifetimeManager());
             currentContainer.RegisterType<IKitLogic, KitLogic>(new
            HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IClientLogic, ClientLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<MainLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<ReportLogic>(new
            HierarchicalLifetimeManager());
