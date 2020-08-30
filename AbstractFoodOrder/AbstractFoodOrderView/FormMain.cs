@@ -138,5 +138,11 @@ namespace AbstractFoodOrderView
         {
             work.DoWork();
         }
+
+        private void buttonMessages_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormMessages>();
+            form.ShowDialog();
+        }
     }
 }
