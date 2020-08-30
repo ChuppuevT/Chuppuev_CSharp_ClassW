@@ -8,7 +8,7 @@ namespace AbstractFoodOrderBusinessLogic.BindingModels
     public class OrderBindingModel
     {
         public int? Id { get; set; }
-        public int ClientId { get; set; }
+        public int? ClientId { get; set; }
         public int? ImplementerId { get; set; }
         public int KitId { get; set; }
         public int Count { get; set; }

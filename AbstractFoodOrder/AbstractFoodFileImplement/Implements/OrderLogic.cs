@@ -35,7 +35,7 @@ namespace AbstractFoodFileImplement.Implements
                 element = new Order { Id = maxId + 1 };
                 source.Orders.Add(element);
             }
-            element.ClientId = model.ClientId;
+            element.ClientId = model.ClientId == null ? element.ClientId : (int)model.ClientId;
             element.KitId = model.KitId == 0 ? element.KitId : model.KitId;
             element.ImplementerId = model.ImplementerId;
             element.Count = model.Count;
@@ -63,7 +63,7 @@ namespace AbstractFoodFileImplement.Implements
            .Where(rec => model == null 
            || (rec.Id == model.Id )
            || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
-           || (model.ClientId == model.ClientId)
+           || (model.ClientId.HasValue && rec.ClientId == model.ClientId)
            || (model.FreeOrders.HasValue && model.FreeOrders.Value && !rec.ImplementerId.HasValue)
            || (model.ImplementerId.HasValue && rec.ImplementerId == model.ImplementerId && rec.Status == OrderStatus.Выполняется))
            .Select(rec => new OrderViewModel
