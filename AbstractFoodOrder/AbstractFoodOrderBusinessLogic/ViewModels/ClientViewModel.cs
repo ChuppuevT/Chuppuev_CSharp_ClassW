@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Text;
 
@@ -12,6 +13,7 @@ namespace AbstractFoodOrderBusinessLogic.ViewModels
         public int Id { get; set; }
 
         [DataMember]
+        [DisplayName("Клиент")]
         public string FIO { get; set; }
 
         [DataMember]
