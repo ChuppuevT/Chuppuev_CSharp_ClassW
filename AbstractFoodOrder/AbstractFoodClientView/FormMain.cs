@@ -28,6 +28,8 @@ namespace AbstractFoodClientView
                 dataGridView.Columns[3].Visible = false;
                 dataGridView.Columns[4].AutoSizeMode =
                DataGridViewAutoSizeColumnMode.Fill;
+                //dataGridView.Columns[4].Visible = false;
+                //dataGridView.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
             catch (Exception ex)
             {
@@ -51,6 +53,11 @@ namespace AbstractFoodClientView
         private void RefreshOrderListToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LoadList();
+        }
+        private void сообщенияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new FormMessages();
+            form.ShowDialog();
         }
     }
 }

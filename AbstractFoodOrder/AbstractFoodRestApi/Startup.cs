@@ -30,6 +30,7 @@ namespace AbstractFoodRestApi
             services.AddTransient<IClientLogic, ClientLogic>();
             services.AddTransient<IOrderLogic, OrderLogic>();
             services.AddTransient<IKitLogic, KitLogic>();
+            services.AddTransient<IMessageInfoLogic, MessageInfoLogic>();
             services.AddTransient<MainLogic>();
             services.AddControllers();
         }

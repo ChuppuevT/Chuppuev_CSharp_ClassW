@@ -18,12 +18,14 @@ namespace AbstractFoodFileImplement
         private readonly string KitFoodFileName = "KitFood.xml";
         private readonly string ClientFileName = "Client.xml";
         private readonly string ImplementerFileName = "Implementer.xml";
+        private readonly string MessageInfoFileName = "MessageInfo.xml";
         public List<Food> Components { get; set; }
         public List<Order> Orders { get; set; }
         public List<Kit> Kits { get; set; }
         public List<KitFood> ProductComponents { get; set; }
         public List<Client> Clients { get; set; }
         public List<Implementer> Implementers { get; set; }
+        public List<MessageInfo> MessageInfoes { get; set; }
         private FileDataListSingleton()
         {
             Components = LoadComponents();
@@ -32,6 +34,7 @@ namespace AbstractFoodFileImplement
             ProductComponents = LoadProductComponents();
             Clients = LoadClients();
             Implementers = LoadImplementers();
+            MessageInfoes = LoadMessageInfoes();
         }
         public static FileDataListSingleton GetInstance()
         {
@@ -49,6 +52,7 @@ namespace AbstractFoodFileImplement
             SaveProductComponents();
             SaveClients();
             SaveImplementers();
+            SaveMessageInfoes();
         }
         private List<Food> LoadComponents()
         {
@@ -183,6 +187,30 @@ namespace AbstractFoodFileImplement
 
             return list;
         }
+        private List<MessageInfo> LoadMessageInfoes()
+        {
+            var list = new List<MessageInfo>();
+
+            if (File.Exists(MessageInfoFileName))
+            {
+                XDocument xDocument = XDocument.Load(MessageInfoFileName);
+                var xElements = xDocument.Root.Elements("MessageInfo").ToList();
+
+                foreach (var elem in xElements)
+                {
+                    list.Add(new MessageInfo
+                    {
+                        MessageId = elem.Attribute("MessageId").Value,
+                        ClientId = Convert.ToInt32(elem.Element("ClientId").Value),
+                        SenderName = elem.Element("SenderName").Value,
+                        DateDelivery = Convert.ToDateTime(elem.Element("DateDelivery").Value),
+                        Subject = elem.Element("Subject").Value,
+                        Body = elem.Element("Body").Value
+                    });
+                }
+            }
+            return list;
+        }
         private void SaveComponents()
         {
             if (Components != null)
@@ -291,6 +319,28 @@ namespace AbstractFoodFileImplement
 
                 XDocument xDocument = new XDocument(xElement);
                 xDocument.Save(ImplementerFileName);
+            }
+        }
+
+        private void SaveMessageInfoes()
+        {
+            if (MessageInfoes != null)
+            {
+                var xElement = new XElement("MessageInfoes");
+
+                foreach (var messageInfo in MessageInfoes)
+                {
+                    xElement.Add(new XElement("MessageInfo",
+                    new XAttribute("Id", messageInfo.MessageId),
+                    new XElement("ClientId", messageInfo.ClientId),
+                    new XElement("SenderName", messageInfo.SenderName),
+                    new XElement("DateDelivery", messageInfo.DateDelivery),
+                    new XElement("Subject", messageInfo.Subject),
+                    new XElement("Body", messageInfo.Body)));
+                }
+
+                XDocument xDocument = new XDocument(xElement);
+                xDocument.Save(MessageInfoFileName);
             }
         }
     }
