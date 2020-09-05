@@ -12,12 +12,14 @@ namespace AbstractFoodListImplement
         public List<Order> Orders { get; set; }
         public List<Kit> Products { get; set; }
         public List<KitFood> ProductComponents { get; set; }
+        public List<Client> Clients { get; set; }
         private DataListSingleton()
         {
             Components = new List<Food>();
             Orders = new List<Order>();
             Products = new List<Kit>();
             ProductComponents = new List<KitFood>();
+            Clients = new List<Client>();
         }
         public static DataListSingleton GetInstance()
         {

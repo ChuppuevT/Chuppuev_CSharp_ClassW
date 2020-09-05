@@ -16,16 +16,19 @@ namespace AbstractFoodFileImplement
         private readonly string OrderFileName = "Order.xml";
         private readonly string KitFileName = "Kit.xml";
         private readonly string KitFoodFileName = "KitFood.xml";
+        private readonly string ClientFileName = "Client.xml";
         public List<Food> Components { get; set; }
         public List<Order> Orders { get; set; }
-        public List<Kit> Products { get; set; }
+        public List<Kit> Kits { get; set; }
         public List<KitFood> ProductComponents { get; set; }
+        public List<Client> Clients { get; set; }
         private FileDataListSingleton()
         {
             Components = LoadComponents();
             Orders = LoadOrders();
-            Products = LoadProducts();
+            Kits = LoadProducts();
             ProductComponents = LoadProductComponents();
+            Clients = LoadClients();
         }
         public static FileDataListSingleton GetInstance()
         {
@@ -41,6 +44,7 @@ namespace AbstractFoodFileImplement
             SaveOrders();
             SaveProducts();
             SaveProductComponents();
+            SaveClients();
         }
         private List<Food> LoadComponents()
         {
@@ -72,6 +76,7 @@ namespace AbstractFoodFileImplement
                     list.Add(new Order
                     {
                         Id = Convert.ToInt32(elem.Attribute("Id").Value),
+                        ClientId = Convert.ToInt32(elem.Element("ClientId").Value),
                         KitId = Convert.ToInt32(elem.Element("KitId").Value),
                         Count = Convert.ToInt32(elem.Element("Count").Value),
                         Sum = Convert.ToDecimal(elem.Element("Sum").Value),
@@ -126,6 +131,30 @@ namespace AbstractFoodFileImplement
             }
             return list;
         }
+
+        private List<Client> LoadClients()
+        {
+            var list = new List<Client>();
+
+            if (File.Exists(ClientFileName))
+            {
+                XDocument xDocument = XDocument.Load(ClientFileName);
+                var xElements = xDocument.Root.Elements("Client").ToList();
+
+                foreach (var elem in xElements)
+                {
+                    list.Add(new Client
+                    {
+                        Id = Convert.ToInt32(elem.Attribute("Id").Value),
+                        FIO = elem.Element("FIO").Value,
+                        Email = elem.Element("Email").Value,
+                        Password = elem.Element("Password").Value
+                    });
+                }
+            }
+
+            return list;
+        }
         private void SaveComponents()
         {
             if (Components != null)
@@ -150,6 +179,7 @@ namespace AbstractFoodFileImplement
                 {
                     xElement.Add(new XElement("Order",
                     new XAttribute("Id", order.Id),
+                    new XElement("ClientId", order.ClientId),
                     new XElement("KitId", order.KitId),
                     new XElement("Count", order.Count),
                     new XElement("Sum", order.Sum),
@@ -163,10 +193,10 @@ namespace AbstractFoodFileImplement
         }
         private void SaveProducts()
         {
-            if (Products != null)
+            if (Kits != null)
             {
                 var xElement = new XElement("Kits");
-                foreach (var product in Products)
+                foreach (var product in Kits)
                 {
                     xElement.Add(new XElement("Kit",
                     new XAttribute("Id", product.Id),
@@ -192,6 +222,26 @@ namespace AbstractFoodFileImplement
                 }
                 XDocument xDocument = new XDocument(xElement);
                 xDocument.Save(KitFoodFileName);
+            }
+        }
+
+        private void SaveClients()
+        {
+            if (Clients != null)
+            {
+                var xElement = new XElement("Clients");
+
+                foreach (var client in Clients)
+                {
+                    xElement.Add(new XElement("Client",
+                    new XAttribute("Id", client.Id),
+                    new XElement("FIO", client.FIO),
+                    new XElement("Email", client.Email),
+                    new XElement("Password", client.Password)));
+                }
+
+                XDocument xDocument = new XDocument(xElement);
+                xDocument.Save(ClientFileName);
             }
         }
     }

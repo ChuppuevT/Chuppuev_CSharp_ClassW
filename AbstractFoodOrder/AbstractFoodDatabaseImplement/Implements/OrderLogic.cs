@@ -2,7 +2,7 @@
 using AbstractFoodOrderBusinessLogic.BindingModels;
 using AbstractFoodOrderBusinessLogic.Interfaces;
 using AbstractFoodOrderBusinessLogic.ViewModels;
-//using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +30,7 @@ namespace AbstractFoodDatabaseImplement.Implements
                     element = new Order { };
                     context.Orders.Add(element);
                 }
+                element.ClientId = model.ClientId == null ? element.ClientId : (int)model.ClientId;
                 element.KitId = model.KitId == 0 ? element.KitId : model.KitId;
                 element.Count = model.Count;
                 element.Sum = model.Sum;
@@ -65,17 +66,22 @@ namespace AbstractFoodDatabaseImplement.Implements
                     rec => model == null
                     || (rec.Id == model.Id && model.Id.HasValue)
                     || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
+                    || (model.ClientId.HasValue && rec.ClientId == model.ClientId)
                 )
+                .Include(rec => rec.Kit)
+                 .Include(rec => rec.Client)
                 .Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
+                    ClientId = rec.ClientId,
                     KitId = rec.KitId,
                     Count = rec.Count,
                     Sum = rec.Sum,
                     Status = rec.Status,
                     DateCreate = rec.DateCreate,
                     DateImplement = rec.DateImplement,
-                    KitName = rec.Kit.KitName
+                    KitName = rec.Kit.KitName,
+                    ClientFIO = rec.Client.FIO
                 })
                 .ToList();
             }

@@ -34,6 +34,7 @@ namespace AbstractFoodFileImplement.Implements
                 element = new Order { Id = maxId + 1 };
                 source.Orders.Add(element);
             }
+            element.ClientId = model.ClientId == null ? element.ClientId : (int)model.ClientId;
             element.KitId = model.KitId == 0 ? element.KitId : model.KitId;
             element.Count = model.Count;
             element.Sum = model.Sum;
@@ -57,11 +58,16 @@ namespace AbstractFoodFileImplement.Implements
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
             return source.Orders
-           .Where(rec => model == null || rec.Id == model.Id || model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
+           .Where(rec => model == null 
+           || (rec.Id == model.Id )
+           || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
+           || (model.ClientId.HasValue && rec.ClientId == model.ClientId))
            .Select(rec => new OrderViewModel
            {
                Id = rec.Id,
-               KitName = GetProductName(rec.KitId),
+               ClientId = rec.ClientId,
+               KitName = source.Kits.FirstOrDefault(recP => recP.Id == rec.KitId)?.KitName,
+               ClientFIO = source.Clients.FirstOrDefault(recC => recC.Id == rec.ClientId)?.FIO,
                Count = rec.Count,
                Sum = rec.Sum,
                Status = rec.Status,
@@ -69,13 +75,6 @@ namespace AbstractFoodFileImplement.Implements
                DateImplement = rec.DateImplement
            })
             .ToList();
-        }
-        private string GetProductName(int id)
-        {
-            string name = "";
-            var product = source.Products.FirstOrDefault(x => x.Id == id);
-            name = product != null ? product.KitName : "";
-            return name;
         }
     }
 }

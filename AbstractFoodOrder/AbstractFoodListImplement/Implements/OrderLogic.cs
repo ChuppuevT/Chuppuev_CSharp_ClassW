@@ -65,6 +65,7 @@ namespace AbstractFoodListImplement.Implements
         {
             order.KitId = model.KitId;
             order.Count = model.Count;
+            order.ClientId = (int)model.ClientId;
             order.DateCreate = model.DateCreate;
             order.DateImplement = model.DateImplement;
             order.Sum = model.Sum;
@@ -80,7 +81,8 @@ namespace AbstractFoodListImplement.Implements
             foreach (var order in source.Orders)
             {
                 if (model != null && order.Id == model.Id
-                    || model.DateFrom.HasValue && model.DateTo.HasValue && order.DateCreate >= model.DateFrom && order.DateCreate <= model.DateTo)
+                    || (model.DateFrom.HasValue && model.DateTo.HasValue && order.DateCreate >= model.DateFrom && order.DateCreate <= model.DateTo)
+                    || (model.ClientId.HasValue && order.ClientId == model.ClientId))
                 {
                     result.Add(CreateViewModel(order));
                     break;
@@ -112,6 +114,7 @@ namespace AbstractFoodListImplement.Implements
             return new OrderViewModel
             {
                 Id = order.Id,
+                ClientId = order.ClientId,
                 KitId = order.KitId,
                 KitName = productName,
                 Count = order.Count,

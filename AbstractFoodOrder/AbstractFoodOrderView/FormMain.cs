@@ -131,6 +131,12 @@ namespace AbstractFoodOrderView
             form.ShowDialog();
         }
 
+        private void клиентыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormClients>();
+            form.ShowDialog();
+        }
+
         private void списокБлюдToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
