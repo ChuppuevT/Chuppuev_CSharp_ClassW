@@ -66,7 +66,7 @@ namespace AbstractFoodDatabaseImplement.Implements
                 .Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
-                    KitName = context.Kits.FirstOrDefault((r) => r.Id == rec.KitId).KitName,
+                    KitName = rec.Kit.KitName,
                     Count = rec.Count,
                     Sum = rec.Sum,
                     Status = rec.Status,
