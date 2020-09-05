@@ -133,19 +133,6 @@ namespace AbstractFoodOrderView
 
         private void списокБлюдToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            /*using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
-            {
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
-                    report.SaveProductsToWordFile(new ReportBindingModel
-                    {
-                        FileName =
-                   dialog.FileName
-                    });
-                    MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
-                   MessageBoxIcon.Information);
-                }
-            }*/
             using (var dialog = new SaveFileDialog { Filter = "docx|*.docx" })
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
