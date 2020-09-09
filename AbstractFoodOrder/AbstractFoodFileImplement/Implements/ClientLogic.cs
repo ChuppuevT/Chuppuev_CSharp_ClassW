@@ -24,7 +24,7 @@ namespace AbstractFoodFileImplement.Implements
 
             if (element != null)
             {
-                throw new Exception("Уже есть компонент с таким названием");
+                throw new Exception("Уже есть блюдо с таким названием");
             }
 
             if (model.Id.HasValue)
