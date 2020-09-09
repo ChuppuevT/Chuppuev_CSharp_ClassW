@@ -23,6 +23,10 @@ namespace AbstractFoodListImplement.Implements
 
             foreach (var client in source.Clients)
             {
+                if (client.Email == model.Email)
+                {
+                    throw new Exception("Клиент с такой почтой уже существует");
+                }
                 if (!model.Id.HasValue && client.Id >= tempClient.Id)
                 {
                     tempClient.Id = tempClient.Id + 1;
