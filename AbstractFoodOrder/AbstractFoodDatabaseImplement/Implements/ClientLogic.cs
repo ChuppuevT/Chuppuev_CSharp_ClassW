@@ -19,7 +19,7 @@ namespace AbstractFoodDatabaseImplement.Implements
 
                 if (element != null)
                 {
-                    throw new Exception("Уже есть компонент с таким названием");
+                    throw new Exception("Уже есть блюдо с таким названием");
                 }
 
                 if (model.Id.HasValue)
@@ -28,7 +28,7 @@ namespace AbstractFoodDatabaseImplement.Implements
 
                     if (element == null)
                     {
-                        throw new Exception("Элемент не найден");
+                        throw new Exception("Блюдо не найдено");
                     }
                 }
                 else
@@ -57,7 +57,7 @@ namespace AbstractFoodDatabaseImplement.Implements
                 }
                 else
                 {
-                    throw new Exception("Элемент не найден");
+                    throw new Exception("Блюдо не найдено");
                 }
             }
         }
