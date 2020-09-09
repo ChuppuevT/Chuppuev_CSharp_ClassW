@@ -144,6 +144,5 @@ namespace AbstractFoodOrderBusinessLogic.BusinessLogics
                 Text = $"Заказ №{order.Id} оплачен."
             });
         }
-
     }
 }
