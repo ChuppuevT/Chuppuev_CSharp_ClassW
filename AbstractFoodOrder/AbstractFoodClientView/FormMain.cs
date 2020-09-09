@@ -28,8 +28,6 @@ namespace AbstractFoodClientView
                 dataGridView.Columns[3].Visible = false;
                 dataGridView.Columns[4].AutoSizeMode =
                DataGridViewAutoSizeColumnMode.Fill;
-                //dataGridView.Columns[4].Visible = false;
-                //dataGridView.Columns[5].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
             catch (Exception ex)
             {
