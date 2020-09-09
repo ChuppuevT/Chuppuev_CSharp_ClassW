@@ -52,7 +52,7 @@ namespace AbstractFoodDatabaseImplement.Implements
                 }
                 else
                 {
-                    throw new Exception("Элемент не найден");
+                    throw new Exception("Блюдо не найдено");
                 }
             }
         }
