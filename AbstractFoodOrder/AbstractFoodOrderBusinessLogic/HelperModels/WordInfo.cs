@@ -9,7 +9,6 @@ namespace AbstractFoodOrderBusinessLogic.HelperModels
     {
         public string FileName { get; set; }
         public string Title { get; set; }
-        //public List<FoodViewModel> Foods { get; set; }
         public List<KitViewModel> Kits { get; set; }
     }
 }
