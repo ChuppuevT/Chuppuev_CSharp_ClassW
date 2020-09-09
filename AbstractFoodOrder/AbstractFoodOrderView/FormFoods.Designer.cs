@@ -100,7 +100,6 @@
             this.Load += new System.EventHandler(this.FormFoods_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
-
         }
 
         #endregion
