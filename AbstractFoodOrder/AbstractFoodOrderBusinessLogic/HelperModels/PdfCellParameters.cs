@@ -13,6 +13,5 @@ namespace AbstractFoodOrderBusinessLogic.HelperModels
         public string Style { get; set; }
         public ParagraphAlignment ParagraphAlignment { get; set; }
         public Unit BorderWidth { get; set; }
-
     }
 }
