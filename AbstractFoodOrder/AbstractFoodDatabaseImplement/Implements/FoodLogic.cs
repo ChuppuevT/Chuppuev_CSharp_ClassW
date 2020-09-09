@@ -27,7 +27,7 @@ namespace AbstractFoodDatabaseImplement.Implements
                    model.Id);
                     if (element == null)
                     {
-                        throw new Exception("Элемент не найден");
+                        throw new Exception("Блюдо не найдено");
                     }
                 }
                 else
