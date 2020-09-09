@@ -104,7 +104,6 @@
             this.Text = "Блюдо Набора";
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
